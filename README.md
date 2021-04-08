@@ -4,11 +4,37 @@ API dinâmica baseada em Flask para envio de dados ao servidor SQL Server.
 
 ## Ambiente de desenvolvimento
 
-*Em breve*
+O Flask exige a configuração de algumas variáveis de ambiente para que o modo
+de desenvolvimento seja efetivamente utilizado.
+
+* FLASK_APP=main.py
+* FLASK_ENV=development
+* FLASK_DEBUG=1
+
+Após definir as 3 variáveis de ambiente acima, usar o comando `flask run` para
+iniciar o servidor no modo desenvolvimento.
 
 ## Configuração
 
-*Em breve*
+Os dados de autenticação do servidor de banco de dados do SQL Server devem ser definidos
+em um arquivo separado chamado `.env` na raiz da pasta do projeto. Em outros casos, os
+dados também podem ser definidos nas variáveis de ambiente.
+
+| Variável     | Descrição              |
+| ------------ | ---------------------- |
+| SQLSAPI_SVR  | IP e porta do servidor. Separar o IP da porta com `,`. Exemplo: `192.168.1.100,1433` ou `servidor.com,4022`.
+| SQLSAPI_DTB  | Nome do banco de dados |
+| SQLSAPI_USR  | Nome do usuário        |
+| SQLSAPI_PSW  | Senha do usuário       |
+
+Um exemplo de arquivo `.env` abaixo:
+
+```text
+SQLSAPI_SVR=192.168.1.100,1433
+SQLSAPI_DTB=Vendas
+SQLSAPI_USR=Gabriel
+SQLSAPI_PSW=123@Gab
+```
 
 ## Deploy
 
@@ -62,15 +88,45 @@ Os próximos tópicos contém mais detalhes sobre o uso da API.
 
 ### Parâmetros
 
-*Em breve*
+Os parâmetros devem especificar como a aplicação vai enviar os dados.
+
+Isso varia de acordo com o tipo de dado que será enviado, e o ideal é que cada
+tipo de dado (ex: dados de relatório) seja enviado em tabelas diferentes.
+
+O parâmetro **tabela** é obrigatório e deve conter o nome da tabela que receberá
+o dado enviado pelo *body*.
+
+
+
+| Parâmetro     | Descrição                           |
+| ------------- | ----------------------------------- |
+| tabela        | Nome da tabela que recebe os dados  |
 
 ### Body
 
-*Em breve*
+O corpo da requisição deve conter **objetos** em JSON ou uma **lista de objetos** em JSON.
 
+Os nomes dos atributos dos objetos JSON devem conter o mesmo nome das colunas que estão no banco de dados.
+
+```json
+  {
+    "userId": 1,
+    "id": 1,
+    "title": "delectus aut autem",
+    "completed": false
+  }
+```
+
+O objeto acima, por exemplo, deve ser enviado na tabela abaixo:
+
+| userId  | id   | title               | completed |
+| ------- | ---- | ------------------- | --------- |
+| 1       | 1    | delectus aut autem  | false     |
 ### Headers
 
-*Em breve*
+O cabeçalho da requisição deve conter, obrigatoriamente, o **Token** de autenticação.
+
+
 
 | Chave         | Descrição                           |
 | ------------- | ----------------------------------- |
