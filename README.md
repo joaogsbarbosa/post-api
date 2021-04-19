@@ -1,6 +1,6 @@
-# API de POST para SQL Server
+# API de POST
 
-API dinâmica baseada em Flask para envio de dados ao servidor SQL Server.
+API dinâmica baseada em Flask para envio de dados a um servidor de banco de dados relacional.
 
 ## Ambiente de desenvolvimento
 
@@ -16,24 +16,24 @@ iniciar o servidor no modo desenvolvimento.
 
 ## Configuração
 
-Os dados de autenticação do servidor de banco de dados do SQL Server devem ser definidos
+Os dados de autenticação do servidor de banco de dados devem ser definidos
 em um arquivo separado chamado `.env` na raiz da pasta do projeto. Em outros casos, os
 dados também podem ser definidos nas variáveis de ambiente.
 
 | Variável     | Descrição              |
 | ------------ | ---------------------- |
-| SQLSAPI_SVR  | IP e porta do servidor. Separar o IP da porta com `,`. Exemplo: `192.168.1.100,1433` ou `servidor.com,4022`.
-| SQLSAPI_DTB  | Nome do banco de dados |
-| SQLSAPI_USR  | Nome do usuário        |
-| SQLSAPI_PSW  | Senha do usuário       |
+| POSTAPI_SVR  | IP e porta do servidor. Separar o IP da porta com `,`. Exemplo: `192.168.1.100,1433` ou `servidor.com,4022`.
+| POSTAPI_DTB  | Nome do banco de dados |
+| POSTAPI_USR  | Nome do usuário        |
+| POSTAPI_PSW  | Senha do usuário       |
 
 Um exemplo de arquivo `.env` abaixo:
 
 ```text
-SQLSAPI_SVR=192.168.1.100,1433
-SQLSAPI_DTB=Vendas
-SQLSAPI_USR=Gabriel
-SQLSAPI_PSW=123@Gab
+POSTAPI_SVR=192.168.1.100,1433
+POSTAPI_DTB=Vendas
+POSTAPI_USR=Gabriel
+POSTAPI_PSW=123@Gab
 ```
 
 ## Deploy
@@ -136,3 +136,4 @@ O cabeçalho da requisição deve conter, obrigatoriamente, o **Token** de auten
 
 * Python 3.9.4
 * Flask 1.1.2
+* pyodbc 4.0.30
