@@ -22,6 +22,8 @@ dados também podem ser definidos nas variáveis de ambiente.
 
 | Variável     | Descrição              |
 | ------------ | ---------------------- |
+| POSTAPI_DBM  | Sistema de gerenciamento de banco de dados. Opções: `postgresql`. |
+| POSTAPI_DRV  | Driver ODBC utilizado. Mais informações [aqui](https://www.connectionstrings.com/).  |
 | POSTAPI_SVR  | IP e porta do servidor. Separar o IP da porta com `,`. Exemplo: `192.168.1.100,1433` ou `servidor.com,4022`.
 | POSTAPI_DTB  | Nome do banco de dados |
 | POSTAPI_USR  | Nome do usuário        |
@@ -30,6 +32,8 @@ dados também podem ser definidos nas variáveis de ambiente.
 Um exemplo de arquivo `.env` abaixo:
 
 ```text
+POSTAPI_DBM=postgresql
+POSTAPI_DRV={ODBC Driver 17 for SQL Server}
 POSTAPI_SVR=192.168.1.100,1433
 POSTAPI_DTB=Vendas
 POSTAPI_USR=Gabriel
@@ -104,20 +108,23 @@ o dado enviado pelo *body*.
 
 ### Body
 
-O corpo da requisição deve conter **objetos** em JSON ou uma **lista de objetos** em JSON.
+O corpo da requisição deve conter uma **lista de objetos** em JSON. Mesmo que contenha apenas 
+um objeto, ele deve estar dentro de uma lista.
 
-Os nomes dos atributos dos objetos JSON devem conter o mesmo nome das colunas que estão no banco de dados.
+Os nomes dos atributos das listas de objetos JSON devem conter o mesmo nome das colunas que estão no banco de dados.
 
 ```json
+[
   {
     "userId": 1,
     "id": 1,
     "title": "delectus aut autem",
     "completed": false
   }
+]
 ```
 
-O objeto acima, por exemplo, deve ser enviado na tabela abaixo:
+A lista acima, por exemplo, deve ser enviada na tabela abaixo:
 
 | userId  | id   | title               | completed |
 | ------- | ---- | ------------------- | --------- |
@@ -137,3 +144,4 @@ O cabeçalho da requisição deve conter, obrigatoriamente, o **Token** de auten
 * Python 3.9.4
 * Flask 1.1.2
 * pyodbc 4.0.30
+* Decouple 3.4
