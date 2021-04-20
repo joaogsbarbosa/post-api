@@ -4,14 +4,13 @@ from decouple import config
 
 class PostgreSQL:
     def __init__(self, conexao):
-        self.conexao = conexao
+        self.cursor = conexao.cursor()
 
     def upsert(self, tabela, dados: list, pk):
         """ :param tabela: Nome da tabela para recebimento dos dados
             :param dados: Lista dos dados que devem ser enviados ao banco de dados
             :param pk: Chave primária necessária para fazer o update
         """
-        queries = []
         colunas_virg_verif = ','.join(dados[0].keys())  # colunas para verificação separadas por vírgula
         for dado in dados:
 
@@ -40,10 +39,11 @@ class PostgreSQL:
                 update += f' {list(colunas)[n]} = {list(valores)[n]},'
             update = update.strip(',')  # remove a última vírgula do update
 
-            # cria a consulta e adiciona na lista
-            queries.append(f'INSERT INTO {tabela}({colunas_virg}) VALUES ({valores_virg}) ON CONFLICT ({pk}) DO UPDATE '
-                           f'SET{update};')
-        return queries
+            # cria a consulta e executa
+            self.cursor.execute(
+                f'INSERT INTO {tabela}({colunas_virg}) VALUES ({valores_virg}) ON CONFLICT ({pk}) '
+                f'DO UPDATE SET{update};')
+        self.cursor.commit()
 
 
 def conectar():

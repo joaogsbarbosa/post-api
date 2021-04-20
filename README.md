@@ -97,14 +97,27 @@ Os parâmetros devem especificar como a aplicação vai enviar os dados.
 Isso varia de acordo com o tipo de dado que será enviado, e o ideal é que cada
 tipo de dado (ex: dados de relatório) seja enviado em tabelas diferentes.
 
-O parâmetro **tabela** é obrigatório e deve conter o nome da tabela que receberá
+O parâmetro **tabela** é obrigatório em todos os casos e deve conter o nome da tabela que vai receber
 o dado enviado pelo *body*.
 
-
+Abaixo está explicitado todos os parâmetros suportados:
 
 | Parâmetro     | Descrição                           |
 | ------------- | ----------------------------------- |
 | tabela        | Nome da tabela que recebe os dados  |
+| pk            | Nome da coluna que possui chave primária |
+
+A combinação desses parâmetros definem como é feito o envio dos dados ao banco de dados.
+Nos próximos tópicos, estão detalhadas todas combinações dos parâmetros.
+
+#### UPSERT
+
+Adiciona novos registros ou atualiza os registros existentes, caso já existam.
+
+Para isso, é necessário que a tabela que deve receber os dados tenha uma coluna com **chave primária**.
+O nome dessa coluna deve estar especificada no parâmetro `pk`, como no exemplo abaixo:
+
+`dominio.com?tabela=vendas&pk=id_pedido`
 
 ### Body
 
