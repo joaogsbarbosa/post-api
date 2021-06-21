@@ -13,7 +13,6 @@ class PostgreSQL:
         """
         colunas_virg_verif = ','.join(dados[0].keys())  # colunas para verificação separadas por vírgula
         for dado in dados:
-
             # parte das colunas
             colunas = dado.keys()
             colunas_virg = ','.join(map(str, colunas))  # colunas separadas por vírgula
@@ -56,7 +55,6 @@ class Mysql:
         """
         colunas_virg_verif = ','.join(dados[0].keys())  # colunas para verificação separadas por vírgula
         for dado in dados:
-
             # parte das colunas
             colunas = dado.keys()
             colunas_virg = ','.join(map(str, colunas))  # colunas separadas por vírgula
@@ -89,12 +87,14 @@ def enviar_dados(tabela, dados, pk):
     usuario = config("POSTAPI_USR")
     senha = config("POSTAPI_PSW")
 
-    conexao = pyodbc.connect(f'DRIVER={driver};SERVER={servidor};DATABASE={banco};UID={usuario};PWD={senha}')
+    string_de_conexao = f'DRIVER={driver};SERVER={servidor};DATABASE={banco};UID={usuario};PWD={senha}'
 
-    if sgbd == 'postgresql':
-        return PostgreSQL(conexao).upsert(tabela, dados, pk)
-    elif sgbd == 'mysql':
-        return Mysql(conexao).upsert(tabela, dados)
-    else:
-        raise ValueError('Parâmetro "POSTAPI_DBM" inválido! Consulte a documentação para obter a lista dos sistemas '
-                         'gerenciadores de banco de dados suportados.')
+    # With usado para fechar a conexão e evitar erros de transações
+    with pyodbc.connect(string_de_conexao) as conexao:
+        if sgbd == 'postgresql':
+            return PostgreSQL(conexao).upsert(tabela, dados, pk)
+        elif sgbd == 'mysql':
+            return Mysql(conexao).upsert(tabela, dados)
+        else:
+            raise ValueError('Parâmetro "POSTAPI_DBM" inválido! Consulte a documentação para obter a lista dos '
+                             'sistemas gerenciadores de banco de dados suportados.')
