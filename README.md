@@ -142,6 +142,7 @@ A lista acima, por exemplo, deve ser enviada na tabela abaixo:
 | userId  | id   | title               | completed |
 | ------- | ---- | ------------------- | --------- |
 | 1       | 1    | delectus aut autem  | false     |
+
 ### Headers
 
 O cabeçalho da requisição deve conter, obrigatoriamente, o **Token** de autenticação.

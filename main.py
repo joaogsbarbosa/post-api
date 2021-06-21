@@ -7,12 +7,12 @@ app = Flask(__name__)
 
 @app.route('/', methods=["POST"])
 def enviar():
-    dados = request.get_json()
     tabela = request.args.get('tabela') or None
+    dados = request.get_json()
     pk = request.args.get('pk') or None
 
-    if tabela and pk:  # upsert
-        db.conectar().upsert(tabela, dados, pk)
+    if tabela and dados and pk:  # upsert
+        db.enviar_dados(tabela, dados, pk)
     else:
         return 'Método de envio desconhecido! Consulte a documentação.', 400
 
