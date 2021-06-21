@@ -22,7 +22,7 @@ dados também podem ser definidos nas variáveis de ambiente.
 
 | Variável     | Descrição              |
 | ------------ | ---------------------- |
-| POSTAPI_DBM  | Sistema de gerenciamento de banco de dados. Opções: `postgresql`. |
+| POSTAPI_DBM  | Sistema de gerenciamento de banco de dados. Opções: `postgresql` e `mysql`. |
 | POSTAPI_DRV  | Driver ODBC utilizado. Mais informações [aqui](https://www.connectionstrings.com/).  |
 | POSTAPI_SVR  | IP e porta do servidor. Separar o IP da porta com `,`. Exemplo: `192.168.1.100,1433` ou `servidor.com,4022`.
 | POSTAPI_DTB  | Nome do banco de dados |
