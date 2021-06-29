@@ -153,3 +153,4 @@ O cabeçalho da requisição deve conter, obrigatoriamente, o **Token** de auten
 * flask 1.1.2
 * mysql-connector-python 8.0.25
 * python-decouple 3.4
+* gunicorn 20.1.0
