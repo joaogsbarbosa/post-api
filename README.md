@@ -1,6 +1,6 @@
 # API de POST
 
-API dinâmica baseada em Flask para envio de dados a um servidor de banco de dados relacional.
+API dinâmica baseada em Flask para envio de dados ao servidor de banco de dados relacional MySQL.
 
 ## Ambiente de desenvolvimento
 
@@ -22,9 +22,8 @@ dados também podem ser definidos nas variáveis de ambiente.
 
 | Variável     | Descrição              |
 | ------------ | ---------------------- |
-| POSTAPI_DBM  | Sistema de gerenciamento de banco de dados. Opções: `postgresql` e `mysql`. |
-| POSTAPI_DRV  | Driver ODBC utilizado. Mais informações [aqui](https://www.connectionstrings.com/).  |
-| POSTAPI_SVR  | IP e porta do servidor. Separar o IP da porta com `,`. Exemplo: `192.168.1.100,1433` ou `servidor.com,4022`.
+| POSTAPI_HST  | IP ou host do servidor. Exemplo: `192.168.1.100` ou `servidor.com`. |
+| POSTAPI_PRT  | Porta do servidor. Padrão: 3306 |
 | POSTAPI_DTB  | Nome do banco de dados |
 | POSTAPI_USR  | Nome do usuário        |
 | POSTAPI_PSW  | Senha do usuário       |
@@ -32,9 +31,8 @@ dados também podem ser definidos nas variáveis de ambiente.
 Um exemplo de arquivo `.env` abaixo:
 
 ```text
-POSTAPI_DBM=postgresql
-POSTAPI_DRV={ODBC Driver 17 for SQL Server}
-POSTAPI_SVR=192.168.1.100,1433
+POSTAPI_HST=192.168.1.100
+POSTAPI_PRT=3306
 POSTAPI_DTB=Vendas
 POSTAPI_USR=Gabriel
 POSTAPI_PSW=123@Gab
@@ -105,19 +103,17 @@ Abaixo está explicitado todos os parâmetros suportados:
 | Parâmetro     | Descrição                           |
 | ------------- | ----------------------------------- |
 | tabela        | Nome da tabela que recebe os dados  |
-| pk            | Nome da coluna que possui chave primária |
 
 A combinação desses parâmetros definem como é feito o envio dos dados ao banco de dados.
-Nos próximos tópicos, estão detalhadas todas combinações dos parâmetros.
+Nos próximos tópicos, estão detalhados os comportamentos dos parâmetros.
 
 #### UPSERT
 
 Adiciona novos registros ou atualiza os registros existentes, caso já existam.
 
-Para isso, é necessário que a tabela que deve receber os dados tenha uma coluna com **chave primária**.
-O nome dessa coluna deve estar especificada no parâmetro `pk`, como no exemplo abaixo:
+Exemplo:
 
-`dominio.com?tabela=vendas&pk=id_pedido`
+`dominio.com?tabela=vendas`
 
 ### Body
 
@@ -147,8 +143,6 @@ A lista acima, por exemplo, deve ser enviada na tabela abaixo:
 
 O cabeçalho da requisição deve conter, obrigatoriamente, o **Token** de autenticação.
 
-
-
 | Chave         | Descrição                           |
 | ------------- | ----------------------------------- |
 | Token         | Senha para autenticação obrigatória |
@@ -156,6 +150,6 @@ O cabeçalho da requisição deve conter, obrigatoriamente, o **Token** de auten
 ## Dependências
 
 * Python 3.9.4
-* Flask 1.1.2
-* pyodbc 4.0.30
-* Decouple 3.4
+* flask 1.1.2
+* mysql-connector-python 8.0.25
+* python-decouple 3.4

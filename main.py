@@ -9,10 +9,9 @@ app = Flask(__name__)
 def enviar():
     tabela = request.args.get('tabela') or None
     dados = request.get_json()
-    pk = request.args.get('pk') or None
 
-    if tabela and dados and pk:  # upsert
-        db.enviar_dados(tabela, dados, pk)
+    if tabela and dados:  # upsert
+        db.enviar_dados(tabela, dados)
     else:
         return 'Método de envio desconhecido! Consulte a documentação.', 400
 
