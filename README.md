@@ -22,11 +22,12 @@ dados também podem ser definidos nas variáveis de ambiente.
 
 | Variável     | Descrição              |
 | ------------ | ---------------------- |
-| POSTAPI_HST  | IP ou host do servidor. Exemplo: `192.168.1.100` ou `servidor.com`. |
-| POSTAPI_PRT  | Porta do servidor. Padrão: 3306 |
+| POSTAPI_HST  | IP ou host do servidor do banco de dados. Exemplo: `192.168.1.100` ou `servidor.com` |
+| POSTAPI_PRT  | Porta do servidor do banco de dados. Padrão: 3306 |
 | POSTAPI_DTB  | Nome do banco de dados |
-| POSTAPI_USR  | Nome do usuário        |
-| POSTAPI_PSW  | Senha do usuário       |
+| POSTAPI_USR  | Nome do usuário do banco de dados      |
+| POSTAPI_PSW  | Senha do usuário do banco de dados     |
+| POSTAPI_TKN  | Token de autenticação. Necessário para restringir o acesso a essa API  |
 
 Um exemplo de arquivo `.env` abaixo:
 
@@ -36,6 +37,7 @@ POSTAPI_PRT=3306
 POSTAPI_DTB=Vendas
 POSTAPI_USR=Gabriel
 POSTAPI_PSW=123@Gab
+POSTAPI_TKN=jUSau9ZN
 ```
 
 ## Deploy
