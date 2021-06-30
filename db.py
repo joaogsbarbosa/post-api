@@ -36,7 +36,7 @@ class Mysql:
         self.cursor.commit()
 
 
-def enviar_dados(tabela, dados, pk):
+def enviar_dados(tabela, dados):
     host = config("POSTAPI_HST")
     porta = config("POSTAPI_PRT", 3306)
     banco = config("POSTAPI_DTB")
