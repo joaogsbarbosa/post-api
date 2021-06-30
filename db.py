@@ -4,6 +4,7 @@ import mysql.connector
 
 class Mysql:
     def __init__(self, conexao):
+        self.conexao = conexao
         self.cursor = conexao.cursor()
 
     def upsert(self, tabela, dados: list):
@@ -33,7 +34,7 @@ class Mysql:
             # cria a consulta e executa
             self.cursor.execute(
                 f'REPLACE INTO {tabela}({colunas_virg}) VALUES ({valores_virg})')
-        self.cursor.commit()
+        self.conexao.commit()
 
 
 def enviar_dados(tabela, dados):
